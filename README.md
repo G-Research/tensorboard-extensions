@@ -40,6 +40,8 @@ There are two columns, each with a regex for search / filtering:
 ### Reloading
 Refreshing the Runsenabler (by clicking the *reload* icon in the tensorboard dashboard while viewing the runsenabler tab) will cause any runs which are enabled in the frontend to load data into *EventAccumulators* in the backend. Therefore, the *EventMultiplexer* which controls all the *EventAccumulators* will only consist of accumulators which are enabled in the frontend.
 
+By default, no runs will be enabled so you will have to select them in the runsenabler, you can provide a regex to initialise the runenabler to save typing that out.
+
 ParamPlot
 =========
 ![ParamPlot Dashboard](/images/paramplot.png)
@@ -55,3 +57,11 @@ The dashboard consists of categories of plots which are filtered by regexes and 
    * Plotting by *All* - Plot one series for the entire chart - metric value is the average over all the metric values for that particular x-axis value
    * Plotting by *None* - Plot a series for each parameter combination (representing keeping all parameters constant apart from the x-axis parameter)
    * Chart functionality is like that of the *Scalars* plugin
+
+### Metric Aggregation method
+Per *tag*, there is a drop down specifying the aggregation method for the data to be plotted. This is applied universally for each metric being viewed in the paramplot dashboard
+
+### Data
+Paramplot denotes a valid run by a run directory which:
+1. Contains a valid set of events files which contain scalar data (readable by the Scalars plugin)
+2. Contains exactly one ```runparams.json``` file which is a dictionary mapping from *parameter_name* to *parameter_value*. For now only numerical values have been supported. Some investigation might be required to asses using other parameter values e.g string values such as in specifying the optimisation method used or learning rate schedule to name a few. 
