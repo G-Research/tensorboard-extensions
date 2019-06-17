@@ -40,7 +40,7 @@ There are two columns, each with a regex for search / filtering:
 ### Reloading
 Refreshing the Runsenabler (by clicking the *reload* icon in the tensorboard dashboard while viewing the runsenabler tab) will cause any runs which are enabled in the frontend to load data into *EventAccumulators* in the backend. Therefore, the *EventMultiplexer* which controls all the *EventAccumulators* will only consist of accumulators which are enabled in the frontend.
 
-By default, no runs will be enabled so you will have to select them in the runsenabler, you can provide a regex to initialise the runenabler to save typing that out.
+By default, no runs will be enabled so you will have to select them in the runsenabler and you can provide a regex to initialise the runeenabler to save typing that out.
 
 ParamPlot
 =========
