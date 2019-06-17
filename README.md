@@ -27,12 +27,12 @@ There are two columns, each with a regex for search / filtering:
 ### Left column
 1. The regex at the top is called the *group regex* and groups the runs by regex match
 2. Left column displays regex matches of runs (which match the left regex called the *group regex*), each group being togglable by a checkbox
-   Toggling the checkbox for a run group will enable or disable all the runs in that particular group (these are the runs which match *group regex* with the matching substring being the group key)
+   * Toggling the checkbox for a run group will enable or disable all the runs in that particular group (these are the runs which match *group regex* with the matching substring being the group key)
 3. There are buttons to enable and disable *all* run groups (and hence all runs which match the *group regex*)
 4. There is a checkbox below the regex text input which if enabled will enable newly created runs iff the new runs match the regex (useful so that tensorboard can automatically pick up and enable newly created runs)
 
 ### Right column
-1. the regex at the top will filter the runs displayed whose corresponding run groups in the left column have been enabled
+1. The regex at the top will filter the runs displayed whose corresponding run groups in the left column have been enabled
 2. runs which *do not* match the regex will still maintain their current state (either ENABLED or DISABLED) 
 3. Enable and disable all runs buttons exist to respectively enable or disable all the visible runs 
 4. Checkboxes next to each run allow the user to enable or disable each run individually
