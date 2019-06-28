@@ -20,14 +20,15 @@ else:
     from .runsenabler import runsenabler_loader
 
 def run_main(asset_path):
-    plugins = default.get_plugins() + [paramplot_plugin.ParamPlotPlugin, runsenabler_loader.RunsEnablerLoader("some_dir")]
+    loader = runsenabler_loader.RunsEnablerLoader("some_dir")
+    plugins = default.get_plugins() + [paramplot_plugin.ParamPlotPlugin, ]
     gr_tensorboard = TensorBoard(plugins, lambda: open(asset_path, 'rb'))
     gr_tensorboard.configure(sys.argv)
 
     use_filesystem_controller = gr_tensorboard.flags.use_filesystem_controller
     if use_filesystem_controller:
         # Retrieve the actual log directory and replace it in the context with the new logdir 
-        original_logdir = pathlib.Path(tensorboard.flags.logdir)
+        original_logdir = pathlib.Path(gr_tensorboard.flags.logdir)
         parent_dir = original_logdir.parent
         print("logdir provided: " + original_logdir)
         new_logdir = parent_dir / "temp_dir"
@@ -37,12 +38,13 @@ def run_main(asset_path):
         new_logdir.mkdir(parents=True)
 
         # swap the original logdir for the new one
-        loader.actual_logdir = original_logdir
-        tensorboard.flags.logdir = str(new_logdir)
-        
+        loader.actual_logdir = str(original_logdir)
+        gr_tensorboard.flags.logdir = str(new_logdir)
+
     try:
         sys.exit(gr_tensorboard.main())
-    except:
+    finally:
         if use_filesystem_controller:
+            shutil.rmtree(str(new_logdir))
             
 
