@@ -56,10 +56,12 @@ class FilesystemRunsController(RunsController):
         # copy the events file and run directory from the logdir to the temp dir
         old_run_path = self.logdir / run
         new_run_path = self.temp_logdir / run
+        print("making run directory: " + str(new_run_path))
         new_run_path.mkdir(parents=True)
         for events_file in old_run_path.glob("events.out.tfevents.*"):
-            new_events_path = new_run_path / events_file.name
-            shutil.copy(str(events_file), str(new_events_path))
+            shutil.copy(str(events_file), str(new_run_path))
+        for metadata_file in old_run_path.glob("*.json"):
+            shutil.copy(str(metadata_file), str(new_run_path))
 
     def enable_run(self, run):
         self._enable_run(run)

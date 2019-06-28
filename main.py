@@ -21,7 +21,7 @@ else:
 
 def run_main(asset_path):
     loader = runsenabler_loader.RunsEnablerLoader("some_dir")
-    plugins = default.get_plugins() + [paramplot_plugin.ParamPlotPlugin, ]
+    plugins = default.get_plugins() + [paramplot_plugin.ParamPlotPlugin, loader]
     gr_tensorboard = TensorBoard(plugins, lambda: open(asset_path, 'rb'))
     gr_tensorboard.configure(sys.argv)
 
@@ -31,9 +31,9 @@ def run_main(asset_path):
     if use_filesystem_controller:
         # Retrieve the actual log directory and replace it in the context with the new logdir
         parent_dir = original_logdir.parent
-        print("logdir provided: " + original_logdir)
+        print("logdir provided: " + str(original_logdir))
         new_logdir = parent_dir / "temp_dir"
-        print("creating temporary workspace in " + new_logdir)
+        print("creating temporary workspace in " + str(new_logdir))
 
         # Create the temp dir
         new_logdir.mkdir(parents=True)

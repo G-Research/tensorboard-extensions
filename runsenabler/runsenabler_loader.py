@@ -13,14 +13,14 @@ class RunsEnablerLoader(base_plugin.TBLoader):
         group.add_argument('--default_runs_regex', metavar='REGEX', type=str, default='', help='''\
             Specifies the regex by which to initialise the tensorboard runsenabler frontend with - no runs will be enabled by default but can be selected in the runsnenabler\
             ''')
-        group.add_argument('--enable_profiling', metavar='ENABLENPROF', type=bool, default=False, help='''\
+        group.add_argument('--enable_profiling', default=False, help='''\
             Determines whether runsenabler will write stats to disk.\
-            ''')
-        group.add_argument("--use_filesystem_controller", type=bool, default=True, store_true=True)
+            ''', action='store_true')
+        group.add_argument("--use_filesystem_controller", default=True, action='store_true')
 
     def load(self, context):
         # Determine which controller to use - either use the multiplexer directly or manipulate runs at the the filesystem level
-        controller = EventMultiplexerRunsController(context._multiplexer, self.actual_logdir)
+        controller = EventMultiplexerRunsController(context.multiplexer, context.logdir)
         if context.flags.use_filesystem_controller:
             controller = FilesystemRunsController(self.actual_logdir, controller)
         return self._plugin_class(context, controller)
