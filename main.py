@@ -26,9 +26,10 @@ def run_main(asset_path):
     gr_tensorboard.configure(sys.argv)
 
     use_filesystem_controller = gr_tensorboard.flags.use_filesystem_controller
+    original_logdir = pathlib.Path(gr_tensorboard.flags.logdir)
+    loader.actual_logdir = str(original_logdir)
     if use_filesystem_controller:
-        # Retrieve the actual log directory and replace it in the context with the new logdir 
-        original_logdir = pathlib.Path(gr_tensorboard.flags.logdir)
+        # Retrieve the actual log directory and replace it in the context with the new logdir
         parent_dir = original_logdir.parent
         print("logdir provided: " + original_logdir)
         new_logdir = parent_dir / "temp_dir"
@@ -38,7 +39,6 @@ def run_main(asset_path):
         new_logdir.mkdir(parents=True)
 
         # swap the original logdir for the new one
-        loader.actual_logdir = str(original_logdir)
         gr_tensorboard.flags.logdir = str(new_logdir)
 
     try:
