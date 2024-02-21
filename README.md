@@ -1,3 +1,7 @@
+# Status: Archived
+
+![status: inactive](https://img.shields.io/badge/status-inactive-red.svg)
+
 # GR Tensorboard - a collection of plugins for tensorboard
 
 <!-- This document was last reviewed on Nov 1, 2018. It should be
